@@ -3,7 +3,7 @@
 """this module is used for unittesting the base model classs"""
 
 
-from models.base_model import BaseModel
+from models.base_model import BaseModel, uuid
 import unittest
 from datetime import datetime
 
@@ -48,3 +48,13 @@ class Test_BaseModel(unittest.TestCase):
                          self.obj1.to_dict()["created_at"])
         self.assertEqual(self.obj1.updated_at.isoformat(),
                          self.obj1.to_dict()["updated_at"])
+
+    def test_kwargs_init(self):
+        # kwargs has all needed attributes
+        obj2 = BaseModel(**self.obj1.to_dict())
+        self.assertEqual(obj2.__dict__, self.obj1.__dict__)
+        self.assertNotEqual(obj2, self.obj1)
+        # kwargs has no attribute
+        obj2 = BaseModel()
+        attrs = ["__class__", "created_at", "updated_at"]
+        [self.assertTrue(hasattr(obj2, attr)) for attr in attrs]
