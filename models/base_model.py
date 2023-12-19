@@ -7,7 +7,7 @@ uniquie ids and additional info abdout the creation and update dates
 
 import uuid
 from datetime import datetime
-from __init__ import storage
+from models import storage
 
 
 class BaseModel:
