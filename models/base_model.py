@@ -36,7 +36,7 @@ class BaseModel:
         2- the class name of an object
         3- the creation and update dates in iso format
         """
-        obj_dict = self.__dict__
+        obj_dict = self.__dict__.copy()
         obj_dict["__class__"] = self.__class__.__name__
         obj_dict["created_at"] = self.created_at.isoformat()
         obj_dict["updated_at"] = self.updated_at.isoformat()
