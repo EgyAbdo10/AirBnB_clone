@@ -17,7 +17,7 @@ class test_FileStorage(unittest.TestCase):
     obj1.save()
     obj2 = BaseModel()
     obj2.save()
-    file_path = "/home/egyabdo/AirBnB_clone/file.json"
+    file_path = "file.json"
 
     def test_save(self):
         self.assertTrue(os.path.exists(self.file_path))
