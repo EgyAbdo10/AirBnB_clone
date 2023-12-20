@@ -50,6 +50,8 @@ class BaseModel:
     def save(self):
         """set the update date to now"""
         self.updated_at = datetime.now()
+        # updating the object if it has new or changed attributes
+        storage.new(self)
         storage.save()
 
     def to_dict(self):
