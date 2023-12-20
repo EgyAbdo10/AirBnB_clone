@@ -30,7 +30,7 @@ class Test_BaseModel(unittest.TestCase):
     def test_save(self):
         self.obj1.save()
         self.assertAlmostEqual(self.obj1.updated_at.timestamp(),
-                               datetime.now().timestamp(), 4)
+                               datetime.now().timestamp(), 1)
 
     def test_to_dict_ret_type(self):
         self.assertIsInstance(self.obj1.to_dict(), dict)

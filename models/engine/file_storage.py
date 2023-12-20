@@ -10,7 +10,7 @@ import os
 
 class FileStorage:
     """perform operations on the storage files"""
-    __file_path = "file.json"
+    __file_path = "/home/egyabdo/AirBnB_clone/file.json"
     __objects = {}
 
     def all(self):
