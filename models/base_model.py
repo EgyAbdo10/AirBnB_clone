@@ -18,7 +18,7 @@ class BaseModel:
         created_at : creation time and date
         updated_at : update time and date
         but in case kwargs is defined::
-        the object will haev all attributes included in the kwargs"""
+        the object will have all attributes included in the kwargs"""
         if kwargs:
             for item in kwargs.items():
                 if item[0] not in ["__class__", "created_at", "updated_at"]:
