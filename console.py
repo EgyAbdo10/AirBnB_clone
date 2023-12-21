@@ -170,7 +170,7 @@ class HBNBCommand(cmd.Cmd):
                     args2 = line.split(".")[1].split("(")[1][:-1]
                     attr_dict_str = args2.split(", {")[1].strip().replace(" ", "")
                     id = args2.split(", {")[0]
-                    atrr_dict = json.loads("{" + attr_dict_str)
+                    atrr_dict = json.loads("{" + attr_dict_str.replace("'", '"'))
                     for k, v in atrr_dict.items():
                         eval("self.do_" + command)(f"{cls_name} {id} {k} {v}")
                 except:
@@ -180,3 +180,4 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
+
