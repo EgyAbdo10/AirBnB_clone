@@ -129,8 +129,14 @@ class HBNBCommand(cmd.Cmd):
         if "." in line:
             cls_name = line.split(".")[0]
             command = line.split(".")[1].split("(")[0]
-            if cls_name in self.classes_list and command in ["all"]:
+            if cls_name in self.classes_list and command == "all":
                 eval("self.do_" + command)(cls_name)
+            elif cls_name in self.classes_list and command == "count":
+                co = 0
+                for k, v in storage.all().items():
+                    if v.__class__.__name__ == cls_name:
+                        co += 1
+                print(co)
         
 
 if __name__ == "__main__":
