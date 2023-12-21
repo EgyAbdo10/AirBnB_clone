@@ -56,11 +56,14 @@ class HBNBCommand(cmd.Cmd):
         elif len(arg_list) < 2:
             print("** instance id missing **")
         elif (
-            f"{arg_list[0]}.{arg_list[1]}" not in storage.all().keys()
+            "{}.{}".format(arg_list[0], 
+                           arg_list[1].replace("'", "").replace('"', ''))
+            not in storage.all().keys()
         ):
             print("** no instance found **")
         else:
-            obj = storage.all()[f"{arg_list[0]}.{arg_list[1]}"]
+            id = arg_list[1].replace("'", "").replace('"', '')
+            obj = storage.all()[f"{arg_list[0]}.{id}"]
             print(obj)
 
     def do_destroy(self, line):
@@ -110,7 +113,8 @@ class HBNBCommand(cmd.Cmd):
         elif len(arg_list) < 2:
             print("** instance id missing **")
         elif (
-            f"{arg_list[0]}.{arg_list[1]}" not in storage.all().keys()
+            "{}.{}".format(arg_list[0], arg_list[1].replace('"', "").replace("'", ""))
+            not in storage.all().keys()
                 ):
             print("** no instance found **")
         elif len(arg_list) < 3:
@@ -118,19 +122,26 @@ class HBNBCommand(cmd.Cmd):
         elif len(arg_list) < 4:
             print("** value missing **")
         else:
+            # delete quotes from attibutre name
+            id = arg_list[1].replace('"', "").replace("'", "")
             if '"' in arg_list[3]:
                 str_attr_val = arg_list[3].split('"')[1]
+            elif "'" in arg_list[3]:
+                str_attr_val = arg_list[3].split("'")[1]
             else:
                 str_attr_val = arg_list[3]
+            # delete quotes from attibutre value
             if '"' in arg_list[2]:
                 str_attr_name = arg_list[2].split('"')[1]
+            elif "'" in arg_list[2]:
+                str_attr_name = arg_list[2].split("'")[1]
             else:
                 str_attr_name = arg_list[2]  
             try:
                 attr_val = json.loads(str_attr_val)
             except json.decoder.JSONDecodeError:
                 attr_val = str_attr_val
-            obj = storage.all()[f"{arg_list[0]}.{arg_list[1]}"]
+            obj = storage.all()[f"{arg_list[0]}.{id}"]
             obj.__dict__[str_attr_name] = attr_val
             obj.save()
 
@@ -140,7 +151,7 @@ class HBNBCommand(cmd.Cmd):
             cls_name = line.split(".")[0]
             command = line.split(".")[1].split("(")[0]
             id = line.split(".")[1].split("(")[1][:-1]
-            if cls_name in self.classes_list and command == "all":
+            if command == "all":
                 eval("self.do_" + command)(cls_name)
             elif cls_name in self.classes_list and command == "count":
                 co = 0
@@ -148,14 +159,23 @@ class HBNBCommand(cmd.Cmd):
                     if v.__class__.__name__ == cls_name:
                         co += 1
                 print(co)
-            elif cls_name in self.classes_list and command == "show":
+            elif command == "show":
                 eval("self.do_" + command)(f"{cls_name} {id}")
-            elif cls_name in self.classes_list and command == "destroy":
+            elif command == "destroy":
                 eval("self.do_" + command)(f"{cls_name} {id}")
             # <class name>.update(<id>, <attribute name>, <attribute value>)
-            elif cls_name in self.classes_list and command == "update":
-                args = line.split(".")[1].split("(")[1][:-1].replace(",", "")
-                eval("self.do_" + command)(f"{cls_name} {args}")
+            # <class name>.update(<id>, <dictionary representation>)
+            elif command == "update":
+                try:
+                    args2 = line.split(".")[1].split("(")[1][:-1]
+                    attr_dict_str = args2.split(", {")[1].strip().replace(" ", "")
+                    id = args2.split(", {")[0]
+                    atrr_dict = json.loads("{" + attr_dict_str)
+                    for k, v in atrr_dict.items():
+                        eval("self.do_" + command)(f"{cls_name} {id} {k} {v}")
+                except:
+                    args = line.split(".")[1].split("(")[1][:-1].replace(",", "")
+                    eval("self.do_" + command)(f"{cls_name} {args}")
 
 
 if __name__ == "__main__":
