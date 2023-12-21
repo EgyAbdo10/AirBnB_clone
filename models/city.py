@@ -9,4 +9,4 @@ from models.base_model import BaseModel
 class City(BaseModel):
     """this class creates City instances"""
     state_id = ""
-    nmae = ""
+    name = ""

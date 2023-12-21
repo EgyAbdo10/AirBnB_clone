@@ -6,6 +6,6 @@
 from models.base_model import BaseModel
 
 
-class amenity(BaseModel):
+class Amenity(BaseModel):
     """this class creates amenity instances"""
-    nmae = ""
+    name = ""
