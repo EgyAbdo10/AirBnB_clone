@@ -146,7 +146,8 @@ class HBNBCommand(cmd.Cmd):
                 print(co)
             elif cls_name in self.classes_list and command == "show":
                 eval("self.do_" + command)(f"{cls_name} {id}")
-
+            elif cls_name in self.classes_list and command == "destroy":
+                eval("self.do_" + command)(f"{cls_name} {id}")
         
 
 if __name__ == "__main__":
