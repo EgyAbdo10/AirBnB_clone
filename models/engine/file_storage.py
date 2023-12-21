@@ -28,6 +28,7 @@ class FileStorage:
 
     def reload(self):
         from ..base_model import BaseModel
+        from ..user import User
         if os.path.exists(self.__file_path):
             with open(self.__file_path, "r", encoding="utf-8") as f:
                 objects = json.load(f)

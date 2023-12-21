@@ -6,6 +6,7 @@
 
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 from models.engine.file_storage import FileStorage
 from models import storage
 import json
@@ -14,7 +15,7 @@ import json
 class HBNBCommand(cmd.Cmd):
     """this class is the hbnb console class"""
     prompt = "(hbnb) "
-    classes_list = ["BaseModel"]
+    classes_list = ["BaseModel", "User"]
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
@@ -29,7 +30,7 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, arg):
-        if arg in ["BaseModel"]:
+        if arg in self.classes_list:
             obj = eval(arg)()
             obj.save()
             print(obj.id)
