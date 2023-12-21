@@ -7,6 +7,11 @@
 import cmd
 from models.base_model import BaseModel
 from models.user import User
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
 from models.engine.file_storage import FileStorage
 from models import storage
 import json
@@ -15,7 +20,8 @@ import json
 class HBNBCommand(cmd.Cmd):
     """this class is the hbnb console class"""
     prompt = "(hbnb) "
-    classes_list = ["BaseModel", "User"]
+    classes_list = ["BaseModel", "User", "Place",
+                    "State", "City", "Amenity", "Review"]
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
