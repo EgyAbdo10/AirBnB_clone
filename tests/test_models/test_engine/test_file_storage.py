@@ -30,14 +30,17 @@ class test_FileStorage(unittest.TestCase):
 
     def test_all(self):
         with open(self.file_path, "r") as f:
-            objects = json.load(f)
-        self.assertEqual(objects, storage.all())
+            objects_dict_loaded = json.load(f)
+        objects_dic_saved = {k: v.to_dict() for k, v in storage.all().items()}
+        self.assertEqual(objects_dic_saved, objects_dict_loaded)
 
     def test_reload(self):
+        storage._FileStorage__objects.clear()
         storage.reload()
         with open(self.file_path, "r") as f:
-            objects = json.load(f)
-        self.assertEqual(objects, storage.all())
+            objects_dict_loaded = json.load(f)
+        objects_dic_saved = {k: v.to_dict() for k, v in storage.all().items()}
+        self.assertEqual(objects_dic_saved, objects_dict_loaded)
 
     def test_new(self):
         new_obj = BaseModel()
@@ -46,5 +49,5 @@ class test_FileStorage(unittest.TestCase):
         objects = storage.all()
         self.assertEqual(
               objects[new_obj.__class__.__name__ + "." + str(new_obj.id)],
-              new_obj.to_dict()
+              new_obj
         )
