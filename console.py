@@ -148,7 +148,11 @@ class HBNBCommand(cmd.Cmd):
                 eval("self.do_" + command)(f"{cls_name} {id}")
             elif cls_name in self.classes_list and command == "destroy":
                 eval("self.do_" + command)(f"{cls_name} {id}")
-        
+            # <class name>.update(<id>, <attribute name>, <attribute value>)
+            elif cls_name in self.classes_list and command == "update":
+                args = line.split(".")[1].split("(")[1][:-1].replace(",", "")
+                eval("self.do_" + command)(f"{cls_name} {args}")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
