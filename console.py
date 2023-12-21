@@ -125,6 +125,13 @@ class HBNBCommand(cmd.Cmd):
             obj.__dict__[arg_list[2]] = attr_val
             obj.save()
 
+    def default(self, line):
+        if "." in line:
+            cls_name = line.split(".")[0]
+            command = line.split(".")[1].split("(")[0]
+            if cls_name in self.classes_list and command in ["all"]:
+                eval("self.do_" + command)(cls_name)
+        
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
