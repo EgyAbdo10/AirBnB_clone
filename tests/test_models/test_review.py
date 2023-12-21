@@ -21,3 +21,4 @@ class test_review(unittest.TestCase):
     def test_text(self):
         self.assertTrue(hasattr(self.review1, "text"))
         self.assertIsInstance(self.review1.text, str)
+        

@@ -36,6 +36,7 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, arg):
+        arg = arg.strip()
         if arg in self.classes_list:
             obj = eval(arg)()
             obj.save()
@@ -46,6 +47,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
 
     def do_show(self, line):
+        line = line.strip()
         arg_list = line.split(" ")
         if line == "":
             print("** class name missing **")
@@ -62,6 +64,7 @@ class HBNBCommand(cmd.Cmd):
             print(obj)
 
     def do_destroy(self, line):
+        line = line.strip()
         arg_list = line.split(" ")
         if line == "":
             print("** class name missing **")
@@ -80,6 +83,7 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_all(self, line):
+        line = line.strip()
         arg_list = line.split(" ")
         if line == "":
             obj_list = (
@@ -97,6 +101,7 @@ class HBNBCommand(cmd.Cmd):
             print(obj_list)
 
     def do_update(self, line):
+        line = line.strip()
         arg_list = line.split(" ")
         if line == "":
             print("** class name missing **")
@@ -126,9 +131,11 @@ class HBNBCommand(cmd.Cmd):
             obj.save()
 
     def default(self, line):
+        line = line.strip()
         if "." in line:
             cls_name = line.split(".")[0]
             command = line.split(".")[1].split("(")[0]
+            id = line.split(".")[1].split("(")[1][:-1]
             if cls_name in self.classes_list and command == "all":
                 eval("self.do_" + command)(cls_name)
             elif cls_name in self.classes_list and command == "count":
@@ -137,6 +144,9 @@ class HBNBCommand(cmd.Cmd):
                     if v.__class__.__name__ == cls_name:
                         co += 1
                 print(co)
+            elif cls_name in self.classes_list and command == "show":
+                eval("self.do_" + command)(f"{cls_name} {id}")
+
         
 
 if __name__ == "__main__":
