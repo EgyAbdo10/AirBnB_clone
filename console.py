@@ -78,12 +78,16 @@ class HBNBCommand(cmd.Cmd):
             obj_list = (
                 [str(val) for val in storage.all().values()]
             )
+            print(obj_list)
+
+        elif line not in self.classes_list:
+            print("** class doesn't exist **")
         else:
             obj_list = (
                 [str(val) for val in storage.all().values()
-                 if val.__class__.__name__ in arg_list]
+                 if val.__class__.__name__ == line]
             )
-        print(obj_list)
+            print(obj_list)
 
     def do_update(self, line):
         arg_list = line.split(" ")
