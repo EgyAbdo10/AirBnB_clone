@@ -119,15 +119,19 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
         else:
             if '"' in arg_list[3]:
-                str_attr_val = line.split('"')[1]
+                str_attr_val = arg_list[3].split('"')[1]
             else:
                 str_attr_val = arg_list[3]
+            if '"' in arg_list[2]:
+                str_attr_name = arg_list[2].split('"')[1]
+            else:
+                str_attr_name = arg_list[2]  
             try:
                 attr_val = json.loads(str_attr_val)
             except json.decoder.JSONDecodeError:
                 attr_val = str_attr_val
             obj = storage.all()[f"{arg_list[0]}.{arg_list[1]}"]
-            obj.__dict__[arg_list[2]] = attr_val
+            obj.__dict__[str_attr_name] = attr_val
             obj.save()
 
     def default(self, line):
