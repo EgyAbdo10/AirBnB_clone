@@ -1,0 +1,27 @@
+header {
+    background-color:#FFF;
+    height: 70px;
+    width: 100%;
+    border-bottom: 1px solid #CCCCCC;
+    position: relative;
+}
+
+
+div.logo {
+    position: absolute;
+    line-height: 70px;    
+    background-image: url("https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/icon.png");
+    background-repeat: no-repeat;
+    background-size:contain;
+    height: 60px;
+    width: 60px;
+    left: 20px;
+}
+
+div.hbnb {
+    position: absolute;
+    left: 80px;
+    line-height: 70px;
+    text-align: center;
+    font-size: 30px;
+}
