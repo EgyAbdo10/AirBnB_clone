@@ -12,7 +12,7 @@
 .places article {
     width: 390px;
     min-height: 60px;
-    height: 300px;
+    height: 330px;
     padding: 20px;
     margin: 20px;
     border: 1px solid #FF5A5F;
@@ -112,4 +112,11 @@
     position: absolute;
     top: 200px;
     left: 65px;
+}
+
+.description {
+    position: absolute;
+    top: 230px;
+    left: 65px;
+    padding-right: 10px;
 }
