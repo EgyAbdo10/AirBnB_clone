@@ -45,6 +45,7 @@
     position: absolute;
     top: 0;
     font-size: 30px;
+    z-index: 1;
 }
 
 .places article div.information {
