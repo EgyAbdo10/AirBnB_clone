@@ -38,6 +38,7 @@
     font-size: 30px;
     text-align: center;
     line-height: 60px;
+    /* overflow: hidden; */
 }
 
 .places article h2 {
@@ -120,4 +121,5 @@
     top: 230px;
     left: 65px;
     padding-right: 10px;
+    overflow: hidden;
 }
